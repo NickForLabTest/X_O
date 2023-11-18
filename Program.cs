@@ -17,6 +17,11 @@ namespace X_O
                 {
                     if (grid[0, 0] == grid[1, 1] && grid[0, 0] == grid[2, 2]) return true;
                 }
+                
+                if ((row == 2 && column == 0) || (row == 1 && column == 1) || (row == 0 && column == 2))
+                {
+                    if (grid[2, 0] == grid[1, 1] && grid[2, 0] == grid[0, 2]) return true;
+                }
 
                 if (grid[row, 0] == grid[row, 1] && grid[row, 0] == grid[row, 2]) return true;
                 
