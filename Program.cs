@@ -10,6 +10,7 @@ namespace X_O
         class game
         {
             char[,] grid = new char[3, 3];
+            int turn_remain = 9;
 
             bool check(int row,int column)
             {
@@ -60,7 +61,7 @@ namespace X_O
             public void start_game()
             {
                 bool turn = false;
-                while (true)
+                while (turn_remain!=0)
                 {
                     char insert;
                     insert = turn==true? 'O':'X';
@@ -75,12 +76,13 @@ namespace X_O
                         if (check(row - 1, column - 1) == true)
                         {
                             Console.WriteLine("We have a winner!");
-                            break;
+                            return;
                         }
                     }
-            
+                    turn_remain--;
                     turn = !turn;
                 }
+                Console.WriteLine("Draw!");
             }
         }
         
