@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace X_O
 {
@@ -11,6 +11,20 @@ namespace X_O
         {
             char[,] grid = new char[3, 3];
 
+            bool check(int row,int column)
+            {
+                if ((row == 0 && column == 0) || (row == 1 && column == 1) || (row == 2 && column == 2))
+                {
+                    if (grid[0, 0] == grid[1, 1] && grid[0, 0] == grid[2, 2]) return true;
+                }
+
+                if (grid[row, 0] == grid[row, 1] && grid[row, 0] == grid[row, 2]) return true;
+                
+                if (grid[row, 0] == grid[row, 1] && grid[row, 0] == grid[row, 2]) return true;
+
+                if (grid[0, column] == grid[1, column] && grid[0, column] == grid[2, column]) return true;
+                return false;
+            }
             void print_array()
             {
                 for (int i = 0; i < grid.GetLength(0); i++)
@@ -43,25 +57,21 @@ namespace X_O
                 bool turn = false;
                 while (true)
                 {
-                    if (turn == false)
+                    char insert;
+                    insert = turn==true? 'O':'X';
                     {
-                        Console.WriteLine("Set X to: ");
+                        Console.WriteLine("Set " + insert + " to:");
                         string[] tokens = Console.ReadLine().Split();
                         int row, column;
                         row = int.Parse(tokens[0]);
                         column = int.Parse(tokens[1]);
-                        grid[row - 1, column - 1] = 'X';
+                        grid[row - 1, column - 1] = insert;
                         print_array();
-                    }
-                    else
-                    {
-                        Console.WriteLine("Set 0 to: ");
-                        string[] tokens = Console.ReadLine().Split();
-                        int row, column;
-                        row = int.Parse(tokens[0]);
-                        column = int.Parse(tokens[1]);
-                        grid[row - 1, column - 1] = 'O';
-                        print_array();
+                        if (check(row - 1, column - 1) == true)
+                        {
+                            Console.WriteLine("We have a winner!");
+                            break;
+                        }
                     }
             
                     turn = !turn;
